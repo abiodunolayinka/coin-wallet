@@ -1,0 +1,64 @@
+.input {
+  width: 100%;
+  padding: 10px 5px;
+  margin-bottom: 5px;
+  font-family: "poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid #ced4da;
+}
+.input1 {
+  width: 100%;
+  padding: 0 5px 200px 5px;
+  margin-bottom: 5px;
+  font-family: "poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  border: 1px solid #ced4da;
+}
+input :active :hover {
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  box-shadow: rgb(88, 125, 199) 0px -15px 25px;
+}
+.form {
+  width: 100%;
+}
+.form textarea {
+  resize: vertical;
+  overflow: hidden;
+  width: 100%;
+}
+.form label {
+  margin-bottom: 5px;
+  font-family: "poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: #ced4da;
+}
+.form p {
+  margin-bottom: 5px;
+  font-family: "poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: #ced4da;
+}
+.button {
+  background-color: #1a1c34;
+
+  border-radius: 7px;
+  color: #fff;
+  padding: 0.5rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 20px 2px;
+  cursor: pointer;
+  font-family: "poppins", sans-serif;
+  font-size: 1.2rem;
+  align-items: center;
+}
+.button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
